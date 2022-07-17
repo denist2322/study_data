@@ -81,4 +81,32 @@ public class UserContoller {
 
     }
 
+    @RequestMapping("/me")
+    @ResponseBody
+    public User showMe(HttpServletRequest req) {
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        Cookie[] cookies = req.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("loginedUserId")) {
+                    isLogined = true;
+                    loginedUserId = Long.parseLong(cookie.getValue());
+                }
+            }
+        }
+
+        if (isLogined == false) {
+            return null;
+        }
+
+        Optional<User> user = userRepository.findById(loginedUserId);
+
+        if(user.isEmpty()){
+            return null;
+        }
+        return user.get();
+    }
 }
