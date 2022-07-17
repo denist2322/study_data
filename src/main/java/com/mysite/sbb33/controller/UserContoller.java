@@ -23,6 +23,10 @@ public class UserContoller {
             return "이메일을 입력해주세요 :)";
         }
 
+        if(userRepository.existsByEmail(email)){
+            return "이미 존재하는 이메일입니다.";
+        }
+
         if(Ut.empty(password)){
             return "비밀번호를 입력해주세요 :)";
         }
@@ -43,6 +47,4 @@ public class UserContoller {
         return "회원가입이 완료되었습니다. :)";
 
     }
-
-
 }
