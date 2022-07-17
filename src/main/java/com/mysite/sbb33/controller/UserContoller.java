@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -18,20 +19,20 @@ public class UserContoller {
 
     @RequestMapping("/doJoin")
     @ResponseBody
-    public String doJoin(String email, String password, String name){
-        if(Ut.empty(email)){
+    public String doJoin(String email, String password, String name) {
+        if (Ut.empty(email)) {
             return "이메일을 입력해주세요 :)";
         }
 
-        if(userRepository.existsByEmail(email)){
+        if (userRepository.existsByEmail(email)) {
             return "이미 존재하는 이메일입니다.";
         }
 
-        if(Ut.empty(password)){
+        if (Ut.empty(password)) {
             return "비밀번호를 입력해주세요 :)";
         }
 
-        if(Ut.empty(name)){
+        if (Ut.empty(name)) {
             return "이름을 입력해주세요 :)";
         }
 
@@ -45,6 +46,32 @@ public class UserContoller {
         userRepository.save(user);
 
         return "회원가입이 완료되었습니다. :)";
+
+    }
+
+    @RequestMapping("doLogin")
+    @ResponseBody
+    public String doLogin(String email, String password) {
+        if (Ut.empty(email)) {
+            return "이메일을 입력해주세요.";
+        }
+
+        if (Ut.empty(password)) {
+            return "비밀번호를 입력해주세요.";
+        }
+
+        if (!userRepository.existsByEmail(email)) {
+            return "이메일이 존재하지 않습니다.";
+        }
+
+        Optional<User> opUser = userRepository.findByEmail(email);
+        User user = opUser.get();
+
+        if (!user.getPassword().equals(password)) {
+            return "비밀번호가 일치하지 않습니다.";
+        }
+
+        return "%s님 환영합니다.:)".formatted(user.getName());
 
     }
 }
