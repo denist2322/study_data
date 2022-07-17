@@ -53,6 +53,18 @@ public class UserContoller {
     @RequestMapping("doLogin")
     @ResponseBody
     public String doLogin(String email, String password, HttpSession session) {
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            islogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(islogined){
+            return "이미 로그인 되어있습니다.";
+        }
+
         if (Ut.empty(email)) {
             return "이메일을 입력해주세요.";
         }
