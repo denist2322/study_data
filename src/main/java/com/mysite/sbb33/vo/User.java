@@ -18,7 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime regDate;
-    private LocalDateTime UpDate;
+    private LocalDateTime UpdateDate;
     private String email;
     private String name;
     @JsonIgnore
