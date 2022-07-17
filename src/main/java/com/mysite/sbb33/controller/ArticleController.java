@@ -17,9 +17,6 @@ public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
-//    public ArticleController(ArticleRepository articleRepository){
-//        this.articleRepository = articleRepository;
-//    }
     //C
     @RequestMapping("doWrite")
     @ResponseBody
