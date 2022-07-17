@@ -1,7 +1,7 @@
 package com.mysite.sbb33.controller;
 
 import com.mysite.sbb33.Ut.Ut;
-import com.mysite.sbb33.repository.UserRepository;
+import com.mysite.sbb33.service.UserService;
 import com.mysite.sbb33.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,14 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
 public class UserContoller {
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @RequestMapping("/doJoin")
     @ResponseBody
@@ -25,7 +23,7 @@ public class UserContoller {
             return "이메일을 입력해주세요 :)";
         }
 
-        if (userRepository.existsByEmail(email)) {
+        if (userService.findEmail(email)) {
             return "이미 존재하는 이메일입니다.";
         }
 
@@ -37,14 +35,7 @@ public class UserContoller {
             return "이름을 입력해주세요 :)";
         }
 
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setName(name);
-        user.setRegDate(LocalDateTime.now());
-        user.setUpdateDate(LocalDateTime.now());
-
-        userRepository.save(user);
+        userService.doJoin(email, password, name);
 
         return "회원가입이 완료되었습니다. :)";
 
@@ -53,15 +44,10 @@ public class UserContoller {
     @RequestMapping("doLogin")
     @ResponseBody
     public String doLogin(String email, String password, HttpSession session) {
-        boolean islogined = false;
-        long loginedUserId = 0;
 
-        if(session.getAttribute("loginedUserId") != null){
-            islogined = true;
-            loginedUserId = (long)session.getAttribute("loginedUserId");
-        }
+        boolean isLogined = userService.isLogined(session);
 
-        if(islogined){
+        if(isLogined){
             return "이미 로그인 되어있습니다.";
         }
 
@@ -73,18 +59,18 @@ public class UserContoller {
             return "비밀번호를 입력해주세요.";
         }
 
-        if (!userRepository.existsByEmail(email)) {
+        if (!userService.findEmail(email)) {
             return "이메일이 존재하지 않습니다.";
         }
 
-        Optional<User> opUser = userRepository.findByEmail(email);
-        User user = opUser.get();
+        User user = userService.getUserByEmail(email);
+
 
         if (!user.getPassword().equals(password)) {
             return "비밀번호가 일치하지 않습니다.";
         }
 
-        session.setAttribute("loginedUserId", user.getId());
+        userService.setLogin(user, session);
 
         return "%s님 환영합니다 :)".formatted(user.getName());
 
@@ -93,19 +79,14 @@ public class UserContoller {
     @RequestMapping("/doLogout")
     @ResponseBody
     public String doLogout(HttpSession session){
-        boolean isLogined = false;
-        long loginedUserId = 0;
 
-        if(session.getAttribute("loginedUserId") != null){
-            isLogined = true;
-            loginedUserId = (long)session.getAttribute("loginedUserId");
-        }
+        boolean isLogined = userService.isLogined(session);
 
         if(!isLogined){
             return "이미 로그아웃 되었습니다. :)";
         }
 
-        session.removeAttribute("loginedUserId");
+        userService.removeLogin(session);
 
         return "로그아웃 되었습니다. :)";
 
@@ -115,23 +96,18 @@ public class UserContoller {
     @RequestMapping("/me")
     @ResponseBody
     public User showMe(HttpSession session) {
-        boolean isLogined = false;
-        long loginedUserId = 0;
-
-        if(session.getAttribute("loginedUserId") != null){
-            isLogined = true;
-            loginedUserId = (long)session.getAttribute("loginedUserId");
-        }
+        boolean isLogined = userService.isLogined(session);
 
         if (isLogined == false) {
             return null;
         }
 
-        Optional<User> user = userRepository.findById(loginedUserId);
+        User user = userService.getUserById(userService.getLoginedId(session));
 
-        if(user.isEmpty()){
+        if(user == null){
             return null;
         }
-        return user.get();
+
+        return user;
     }
 }
