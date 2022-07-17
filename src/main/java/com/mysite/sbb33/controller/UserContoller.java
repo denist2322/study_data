@@ -78,6 +78,28 @@ public class UserContoller {
 
     }
 
+    @RequestMapping("/doLogout")
+    @ResponseBody
+    public String doLogout(HttpSession session){
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(!isLogined){
+            return "이미 로그아웃 되었습니다. :)";
+        }
+
+        session.removeAttribute("loginedUserId");
+
+        return "로그아웃 되었습니다. :)";
+
+    }
+
+
     @RequestMapping("/me")
     @ResponseBody
     public User showMe(HttpSession session) {
