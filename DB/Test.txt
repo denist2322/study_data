@@ -1,0 +1,14 @@
+http://localhost:8088/user/doJoin?email=test1@test.com&password=1234&name=하이하이
+http://localhost:8088/user/doLogin?email=test1@test.com&password=1234
+http://localhost:8088/user/me?id=4
+http://localhost:8088/user/doLogout
+
+http://localhost:8088/article/doWrite?title=새로&body=만들었어요
+http://localhost:8088/article/list
+http://localhost:8088/article/detail?id=5
+http://localhost:8088/article/doModify?id=5&title=수정&body=했어요
+http://localhost:8088/article/doDelete?id=5
+http://localhost:8088/article/list
+
+
+
