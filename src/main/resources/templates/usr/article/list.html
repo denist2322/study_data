@@ -8,7 +8,7 @@
 <h1>게시물 목록</h1>
 <ul>
     <li th:each="article : ${articles}">
-        [[${article.id}]] / [[${article.title}]] / [[${article.regDate}]]
+        [[${article.id}]] / <a th:href="@{detail(id=${article.id})}">[[${article.title}]]</a> / [[${article.regDate}]]
     </li>
 </ul>
 </body>
