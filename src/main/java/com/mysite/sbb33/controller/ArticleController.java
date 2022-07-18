@@ -43,14 +43,14 @@ public class ArticleController {
     public String showList(Model model) {
         List<Article> articles = articleService.getLists();
         model.addAttribute("articles",articles);
-        return "usr/article/list";
+        return "article/list";
     }
 
     @RequestMapping("detail")
     public String showDetail(Long id, Model model){
         Article article = articleService.getList(id);
         model.addAttribute("article",article);
-        return "usr/article/detail";
+        return "article/detail";
     }
     //U
     @RequestMapping("doModify")

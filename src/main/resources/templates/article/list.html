@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{common/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 목록</title>
+</head>
+<main layout:fragment="main">
+    <h1>게시물 목록</h1>
+    <ul>
+        <li th:each="article : ${articles}">
+            [[${article.id}]] / <a th:href="@{detail(id=${article.id})}">[[${article.title}]]</a> /
+            [[${article.regDate}]]
+        </li>
+    </ul>
+</main>
+</html>
