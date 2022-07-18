@@ -6,6 +6,7 @@ import com.mysite.sbb33.service.ArticleService;
 import com.mysite.sbb33.vo.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,10 +40,10 @@ public class ArticleController {
 
     //R
     @RequestMapping("list")
-    @ResponseBody
-    public List<Article> showList(){
+    public String showList(Model model) {
         List<Article> articles = articleService.getLists();
-        return articles;
+        model.addAttribute("articles",articles);
+        return "/usr/article/list";
     }
 
     @RequestMapping("detail")
