@@ -22,6 +22,11 @@ public class ArticleController {
     private UserRepository userRepository;
 
     //C
+    @RequestMapping("write")
+    public String showWrite(){
+        return "article/write";
+    }
+
     @RequestMapping("doWrite")
     @ResponseBody
     public String doWrite(String title, String body){

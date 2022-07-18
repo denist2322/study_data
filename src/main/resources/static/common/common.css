@@ -9,6 +9,7 @@ html > body,
 html > body input,
 html > body button,
 html > body select,
+html > body textarea,
 html > body pre{
     font-family:"BMJUA";
     color: #333;
