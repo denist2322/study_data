@@ -79,6 +79,15 @@ public class ArticleController {
         return "article/detail";
     }
     //U
+    @RequestMapping("modify")
+    public String showModify(Long id, Model model){
+        Article article = articleService.getList(id);
+
+        model.addAttribute("article", article);
+
+        return "article/modify";
+    }
+
     @RequestMapping("doModify")
     @ResponseBody
     public String doModify(Long id, String title, String body){

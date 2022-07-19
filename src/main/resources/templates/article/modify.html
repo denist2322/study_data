@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{common/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+</head>
+
+<main layout:fragment="main">
+    <h1>[[${article.title}]] 게시글 수정</h1>
+    <form th:action="@{|/article/doModify|}" method="POST">
+        <input type="hidden" name="id" th:value="${article.id}">
+        <div>
+            <div>제목</div>
+            <div>
+                <input type="text" name="title" th:placeholder="${article.title}" th:value="${article.title}"/>
+            </div>
+        </div>
+
+        <div>
+            <div>내용</div>
+            <div>
+                <textarea name="body" th:placeholder="${article.body}" th:text="${article.body}"></textarea>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" value="수정">
+        </div>
+    </form>
+</main>
+</html>

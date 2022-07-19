@@ -10,5 +10,7 @@
     <h1>[[${article.id}]]번 게시물</h1>
     <div>작성날짜 : [[${article.regDate}]]</div>
     <div>내용 : [[${article.body}]]</div>
+
+    <div><a th:href="@{modify(id=${article.id})}">수정하기</a></div>
 </main>
 </html>
