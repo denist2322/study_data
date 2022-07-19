@@ -142,12 +142,20 @@ public class ArticleController {
     @RequestMapping("doDelete")
     @ResponseBody
     public String doDelete(Long id){
+        
+        // 사실 필요없음
         if(!articleService.findList(id)){
             return "%d번 게시물은 없습니다.".formatted(id);
         }
+        // 여기까지
 
         articleService.doDelete(id);
 
-        return "%d번 게시물을 삭제했습니다.".formatted(id);
+        return """
+                <script>
+                alert("게시물이 삭제되었습니다, :)");
+                location.replace("list");
+                </script>
+                """;
     }
 }
