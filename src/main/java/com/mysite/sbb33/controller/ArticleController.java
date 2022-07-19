@@ -1,8 +1,8 @@
 package com.mysite.sbb33.controller;
 
 import com.mysite.sbb33.Ut.Ut;
-import com.mysite.sbb33.repository.UserRepository;
 import com.mysite.sbb33.service.ArticleService;
+import com.mysite.sbb33.service.UserService;
 import com.mysite.sbb33.vo.Article;
 import com.mysite.sbb33.vo.ArticleWriteForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     //C
     @RequestMapping("write")
@@ -52,11 +53,19 @@ public class ArticleController {
 //    }
 
     @RequestMapping("doWrite")
-    public String doWrite(@Valid ArticleWriteForm articleWriteForm, BindingResult bindingResult, Model model) {
+    public String doWrite(@Valid ArticleWriteForm articleWriteForm, BindingResult bindingResult, Model model, HttpSession session) {
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
         if(bindingResult.hasErrors()){
             return "article/write";
         }
-        articleService.doWrite(articleWriteForm.getTitle(), articleWriteForm.getBody());
+        articleService.doWrite(loginedUserId, articleWriteForm.getTitle(), articleWriteForm.getBody());
         model.addAttribute("msg", "게시물이 생성되었습니다.");
         model.addAttribute("replaceUri","list");
 

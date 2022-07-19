@@ -18,13 +18,13 @@ public class ArticleService {
     @Autowired
     private UserRepository userRepository;
 
-    public void doWrite(String title, String body) {
+    public void doWrite(long loginedUserId, String title, String body) {
         Article article = new Article();
         article.setRegDate(LocalDateTime.now());
         article.setUpdateDate(LocalDateTime.now());
         article.setTitle(title);
         article.setBody(body);
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.findById(loginedUserId).get();
         article.setUser(user);
 
         articleRepository.save(article);
