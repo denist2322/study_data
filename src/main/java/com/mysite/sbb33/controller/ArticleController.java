@@ -62,6 +62,13 @@ public class ArticleController {
             loginedUserId = (long)session.getAttribute("loginedUserId");
         }
 
+        if(!islogined){
+            model.addAttribute("msg","로그인후 이용해주세요");
+            model.addAttribute("replaceUri", "list");
+
+            return "common/js";
+        }
+
         if(bindingResult.hasErrors()){
             return "article/write";
         }
