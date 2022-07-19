@@ -6,7 +6,7 @@
     <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">게시판</title>
 </head>
 <body>
-<h1><a href="#">게시판</a></h1>
+<h1><a th:href="@{|/|}">게시판</a></h1>
 <div><a href="write">글쓰기</a></div>
 <main layout:fragment="main">
 

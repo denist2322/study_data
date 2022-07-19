@@ -91,6 +91,7 @@ public class ArticleController {
     @RequestMapping("doModify")
     @ResponseBody
     public String doModify(Long id, String title, String body){
+        // 사실 필요 없음
         if(id == null){
             return "게시물번호를 입력해주세요";
         }
@@ -106,10 +107,16 @@ public class ArticleController {
         if(Ut.empty(body)){
             return "내용을 입력해주세요.";
         }
+        // 여기까지
 
         articleService.doModify(id, title, body);
 
-        return "게시물 수정이 완료되었습니다. :)";
+        return """
+                <script>
+                alert("게시글 수정이 완료되었습니다. :)");
+                location.replace("detail?id=%d")
+                </script>
+                """.formatted(id);
     }
     //D
     @RequestMapping("doDelete")
