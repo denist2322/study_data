@@ -27,7 +27,23 @@ public class ArticleController {
 
     //C
     @RequestMapping("write")
-    public String showWrite(ArticleWriteForm articleWriteForm){
+    public String showWrite(ArticleWriteForm articleWriteForm, HttpSession session, Model model){
+
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(!islogined){
+            model.addAttribute("msg","로그인후 이용해주세요");
+            model.addAttribute("replaceUri", "list");
+
+            return "common/js";
+        }
+
         return "article/write";
     }
 
@@ -54,20 +70,8 @@ public class ArticleController {
 
     @RequestMapping("doWrite")
     public String doWrite(@Valid ArticleWriteForm articleWriteForm, BindingResult bindingResult, Model model, HttpSession session) {
-        boolean islogined = false;
-        long loginedUserId = 0;
 
-        if (session.getAttribute("loginedUserId") != null) {
-            islogined = true;
-            loginedUserId = (long)session.getAttribute("loginedUserId");
-        }
-
-        if(!islogined){
-            model.addAttribute("msg","로그인후 이용해주세요");
-            model.addAttribute("replaceUri", "list");
-
-            return "common/js";
-        }
+        Long loginedUserId = (long)session.getAttribute("loginedUserId");
 
         if(bindingResult.hasErrors()){
             return "article/write";
