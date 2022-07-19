@@ -11,4 +11,9 @@ public class MainController {
     public String showMain(){
         return "하이";
     }
+
+    @RequestMapping("/")
+    public String rootMain(){
+        return "redirect:article/list";
+    }
 }
