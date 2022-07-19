@@ -9,7 +9,8 @@
 <main layout:fragment="main">
 <h1>게시물 작성</h1>
 <!--    <form action="doWrite" method="POST"> 둘다 가능함-->
-    <form th:action="@{|/article/doWrite|}" method="POST">
+    <form th:action="@{|/article/doWrite|}" th:object=${articleWriteForm} method="POST">
+        <div th:replace="common/error_form :: formErrorsFragment"></div>
         <div>
             <div>제목</div>
             <div>

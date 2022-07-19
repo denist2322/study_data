@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>알림</title>
+
+    <script th:inline="javascript">
+	const msg = /*[[${msg}]]*/ null;
+
+	if ( msg.trim().length > 0 ) {
+	  alert(msg);
+	}
+
+	const historyBack = /*[[${historyBack}]]*/ false;
+
+	if ( historyBack ) {
+	  history.back();
+	}
+
+	const replaceUri = /*[[${replaceUri}]]*/ false;
+
+	if ( replaceUri ) {
+	  location.replace(replaceUri);
+	}
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

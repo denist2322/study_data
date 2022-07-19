@@ -4,12 +4,15 @@ import com.mysite.sbb33.Ut.Ut;
 import com.mysite.sbb33.repository.UserRepository;
 import com.mysite.sbb33.service.ArticleService;
 import com.mysite.sbb33.vo.Article;
+import com.mysite.sbb33.vo.ArticleWriteForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -23,23 +26,41 @@ public class ArticleController {
 
     //C
     @RequestMapping("write")
-    public String showWrite(){
+    public String showWrite(ArticleWriteForm articleWriteForm){
         return "article/write";
     }
 
+
+//    @RequestMapping("doWrite")
+//    @ResponseBody
+//    public String doWrite(String title, String body, Model model){
+//        if(Ut.empty(title)){
+//            return "제목을 입력해주세요.";
+//        }
+//
+//        if(Ut.empty(body)){
+//            return "내용을 입력해주세요.";
+//        }
+//
+//        articleService.doWrite(title, body);
+//        return """
+//                <script>
+//                alert("게시물 생성이 완료되었습니다.");
+//                location.replace("list");
+//                </script>
+//                """;
+//    }
+
     @RequestMapping("doWrite")
-    @ResponseBody
-    public String doWrite(String title, String body){
-        if(Ut.empty(title)){
-            return "제목을 입력해주세요.";
+    public String doWrite(@Valid ArticleWriteForm articleWriteForm, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()){
+            return "article/write";
         }
+        articleService.doWrite(articleWriteForm.getTitle(), articleWriteForm.getBody());
+        model.addAttribute("msg", "게시물이 생성되었습니다.");
+        model.addAttribute("replaceUri","list");
 
-        if(Ut.empty(body)){
-            return "내용을 입력해주세요.";
-        }
-
-        articleService.doWrite(title, body);
-        return "게시물 생성이 완료되었습니다.";
+        return "common/js";
 
     }
 
