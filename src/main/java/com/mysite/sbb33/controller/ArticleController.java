@@ -71,7 +71,20 @@ public class ArticleController {
     @RequestMapping("doWrite")
     public String doWrite(@Valid ArticleWriteForm articleWriteForm, BindingResult bindingResult, Model model, HttpSession session) {
 
-        Long loginedUserId = (long)session.getAttribute("loginedUserId");
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(!islogined){
+            model.addAttribute("msg", "로그인 부터 하세요.");
+            model.addAttribute("historyBack","true");
+
+            return "common/js";
+        }
 
         if(bindingResult.hasErrors()){
             return "article/write";
@@ -141,10 +154,28 @@ public class ArticleController {
     //D
     @RequestMapping("doDelete")
     @ResponseBody
-    public String doDelete(Long id, HttpSession session){
+    public String doDelete(Long id, HttpSession session, Model model){
 
-        Long loginedUserId = (long)session.getAttribute("loginedUserId");
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(!islogined){
+
+            return """
+                <script>
+                alert("로그인부터 하세요. :)");
+                history.back();
+                </script>
+                """;
+        }
+
         Article article = articleService.getList(id);
+
 
         if(article.getUser().getId() != loginedUserId) {
             return """
@@ -154,6 +185,8 @@ public class ArticleController {
                 </script>
                 """;
         }
+
+
 
 //        // 사실 필요없음
 //        if(!articleService.findList(id)){
