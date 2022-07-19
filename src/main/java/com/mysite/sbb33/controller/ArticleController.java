@@ -141,13 +141,25 @@ public class ArticleController {
     //D
     @RequestMapping("doDelete")
     @ResponseBody
-    public String doDelete(Long id){
-        
-        // 사실 필요없음
-        if(!articleService.findList(id)){
-            return "%d번 게시물은 없습니다.".formatted(id);
+    public String doDelete(Long id, HttpSession session){
+
+        Long loginedUserId = (long)session.getAttribute("loginedUserId");
+        Article article = articleService.getList(id);
+
+        if(article.getUser().getId() != loginedUserId) {
+            return """
+                <script>
+                alert("권한이 없습니다. :)");
+                location.replace("list");
+                </script>
+                """;
         }
-        // 여기까지
+
+//        // 사실 필요없음
+//        if(!articleService.findList(id)){
+//            return "%d번 게시물은 없습니다.".formatted(id);
+//        }
+//        // 여기까지
 
         articleService.doDelete(id);
 
