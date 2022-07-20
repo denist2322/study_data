@@ -123,7 +123,35 @@ public class ArticleController {
 
     @RequestMapping("doModify")
     @ResponseBody
-    public String doModify(Long id, String title, String body){
+    public String doModify(Long id, String title, String body, HttpSession session){
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(!islogined){
+            return """
+                <script>
+                alert("로그인부터 해주세요. :)");
+                location.replace("detail?id=%d")
+                </script>
+                """.formatted(id);
+        }
+
+        Article article = articleService.getList(id);
+
+        if(!article.getId().equals(loginedUserId)){
+            return """
+                <script>
+                alert("권한이 없습니다. :)");
+                location.replace("detail?id=%d")
+                </script>
+                """.formatted(id);
+        }
+
         // 사실 필요 없음
         if(id == null){
             return "게시물번호를 입력해주세요";
