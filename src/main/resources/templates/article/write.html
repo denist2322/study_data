@@ -12,14 +12,14 @@
     <form th:action="@{|/article/doWrite|}" th:object=${articleWriteForm} method="POST">
         <div th:replace="common/error_form :: formErrorsFragment"></div>
         <div>
-            <div>제목</div>
+            <div class="whiteFont">제목</div>
             <div>
                 <input type="text" name="title" placeholder="제목을 입력해주세요." />
             </div>
         </div>
 
         <div>
-            <div>내용</div>
+            <div class="whiteFont">내용</div>
             <div>
                 <textarea name="body" placeholder="내용을 입력해주세요."></textarea>
             </div>

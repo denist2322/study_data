@@ -8,8 +8,8 @@
 
 <main layout:fragment="main">
     <h1>[[${article.title}]]</h1>
-    <div>작성날짜 : [[${article.regDate}]]</div>
-    <div>내용 : [[${article.body}]]</div>
+    <div class="whiteFont">작성날짜 : [[${article.regDate}]]</div>
+    <div class="whiteFont">내용 : [[${article.body}]]</div>
 
     <div th:if="${article.id == session.loginedUserId}"><a th:href="@{modify(id=${article.id})}">수정하기</a> | <a th:href="@{doDelete(id=${article.id})}">삭제하기</a></div>
 </main>
