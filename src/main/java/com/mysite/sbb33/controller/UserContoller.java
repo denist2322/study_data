@@ -43,16 +43,16 @@ public class UserContoller {
     }
 
     @RequestMapping("login")
-    public String showLogin(HttpSession session, Model model){
+    public String showLogin(HttpSession session, Model model) {
         boolean isLogined = false;
         long loginedUserId = 0;
 
-        if(session.getAttribute("loginedUserId") != null){
+        if (session.getAttribute("loginedUserId") != null) {
             isLogined = true;
-            loginedUserId = (long)session.getAttribute("loginedUserId");
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
-        if(isLogined){
+        if (isLogined) {
             model.addAttribute("msg", "이미 로그인 되어 있습니다.");
             model.addAttribute("historyBack", "true");
 
@@ -68,42 +68,72 @@ public class UserContoller {
 
         boolean isLogined = userService.isLogined(session);
 
-        if(isLogined){
-            return "이미 로그인 되어있습니다.";
+        if (isLogined) {
+            return """
+                    <script>
+                    alert("이미 로그인이 되어 있습니다.");
+                    location.replace("/");
+                    </script>
+                    """;
         }
 
         if (Ut.empty(email)) {
-            return "이메일을 입력해주세요.";
+            return """
+                    <script>
+                    alert("이메일을 입력해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         if (Ut.empty(password)) {
-            return "비밀번호를 입력해주세요.";
+            return """
+                    <script>
+                    alert("비밀번호를 입력해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         if (!userService.findEmail(email)) {
-            return "이메일이 존재하지 않습니다.";
+            return """
+                    <script>
+                    alert("이메일이 존재하지 않습니다.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         User user = userService.getUserByEmail(email);
 
 
         if (!user.getPassword().equals(password)) {
-            return "비밀번호가 일치하지 않습니다.";
+            return """
+                    <script>
+                    alert("비밀번호가 일치하지 않습니다.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         userService.setLogin(user, session);
 
-        return "%s님 환영합니다 :)".formatted(user.getName());
+        return """
+                <script>
+                alert("%s님 환영합니다.");
+                location.replace("/");
+                </script>
+                """.formatted(user.getName());
 
     }
 
     @RequestMapping("/doLogout")
     @ResponseBody
-    public String doLogout(HttpSession session){
+    public String doLogout(HttpSession session) {
 
         boolean isLogined = userService.isLogined(session);
 
-        if(!isLogined){
+        if (!isLogined) {
             return "이미 로그아웃 되었습니다. :)";
         }
 
@@ -125,7 +155,7 @@ public class UserContoller {
 
         User user = userService.getUserById(userService.getLoginedId(session));
 
-        if(user == null){
+        if (user == null) {
             return null;
         }
 
