@@ -5,6 +5,7 @@ import com.mysite.sbb33.service.UserService;
 import com.mysite.sbb33.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,6 +40,26 @@ public class UserContoller {
 
         return "회원가입이 완료되었습니다. :)";
 
+    }
+
+    @RequestMapping("login")
+    public String showLogin(HttpSession session, Model model){
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+        if(isLogined){
+            model.addAttribute("msg", "이미 로그인 되어 있습니다.");
+            model.addAttribute("historyBack", "true");
+
+            return "common/js";
+        }
+
+        return "user/login";
     }
 
     @RequestMapping("doLogin")
