@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link rel="stylesheet" href="/common/common.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="common/darkMod :: darkFragment"></div>
+<!--    <div th:replace="common/darkMod :: darkFragment"></div>-->
     <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">게시판</title>
 </head>
 <body>
+<button onclick="myFunction()">Toggle dark mode</button>
+
 <h1><a th:href="@{|/|}">게시판</a></h1>
 <div><a href="write">글쓰기</a></div>
 <div><a th:href="@{|/user/login|}">로그인</a></div>
@@ -14,5 +17,21 @@
 <main layout:fragment="main">
 
 </main>
+<script>
+if(localStorage.getItem("colorMode") === "dark"){ document.body.classList.add("dark-mode"); }
+
+function myFunction() {
+    let colorMode = localStorage.getItem("colorMode");
+
+    if(colorMode === "dark"){ // 현재 값이 다크모드이면
+        localStorage.setItem("colorMode", "light");
+        document.body.classList.remove("dark-mode");
+    }else{
+        localStorage.setItem("colorMode", "dark");
+        document.body.classList.add("dark-mode");
+    }
+}
+</script>
 </body>
 </html>
+
