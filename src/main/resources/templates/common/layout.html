@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="/common/common.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css">
 <head>
@@ -11,9 +12,12 @@
 <button onclick="myFunction()">Toggle dark mode</button>
 
 <h1><a th:href="@{|/|}">게시판</a></h1>
-<div><a href="write">글쓰기</a></div>
-<div><a th:href="@{|/user/login|}">로그인</a></div>
-
+<ul class="flex">
+    <li><a href="/article/write" class="block p-4 hover:text-green-300">글쓰기</a></li>
+    <li><a href="/article/list" class="block p-4 hover:text-green-300">글 리스트</a></li>
+    <li><a href="/user/login" class="block p-4 hover:text-green-300">로그인</a></li>
+    <li><a href="/user/join" class="block p-4 hover:text-green-300">회원가입</a></li>
+</ul>
 <main layout:fragment="main">
 
 </main>
