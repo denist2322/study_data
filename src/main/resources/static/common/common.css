@@ -23,34 +23,5 @@ html > body {
 
 .dark-mode {
     color: #fff ;
-    background-color: #000;
+    background-color: #353535;
 }
-
-
-/*다크모드 버튼*/
-#toggle{
-            display: inline-flex;
-            padding: 5px;
-            border-radius: 1.5em;
-            background-color: #82d8ff;
-        }
-#toggle i{
-            font-size: 1.5em;
-            padding: 5px;
-            background-color: #fff;
-            color: #666;
-        }
-#light-mode{
-            border-radius: 50% 0 0 50%;
-        }
-#dark-mode{
-            border-radius: 0 50% 50% 0;
-        }
-#toggle input{
-            display: none;
-        }
-#toggle input[type=radio]:checked + label > i {
-            background-color: #82d8ff;
-            color: #fff;
-            transition: all 0.3s ease-in-out;
-        }
