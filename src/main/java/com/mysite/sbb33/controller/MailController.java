@@ -31,4 +31,8 @@ public class MailController {
                 """;
     }
 
+    @GetMapping("/modal")
+    public String disModal() {
+        return "user/modal";
+    }
 }
