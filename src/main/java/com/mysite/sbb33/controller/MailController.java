@@ -20,15 +20,11 @@ public class MailController {
 
     @PostMapping("/mail")
     @ResponseBody
-    public String execMail(MailDto mailDto) {
+    public void execMail(MailDto mailDto) {
+        mailDto.setTitle("본인인증 메일입니다.");
+        mailDto.setMessage("아래 인증번호를 홈페이지에서 기입해주세요.");
         mailService.mailSimpleSend(mailDto);
 //        mailService.mailSend(mailDto);
-        return """
-                <script>
-                alert("메일을 성공적으로 보냈습니다.");
-                history.back();
-                </script>
-                """;
     }
 
     @GetMapping("/modal")
