@@ -1,6 +1,21 @@
 server:
   port: 8088
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pullstack1b@gmail.com
+    password: qhaiagnpjvlhgtad
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sbb?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull

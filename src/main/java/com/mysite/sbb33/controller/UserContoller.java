@@ -17,6 +17,12 @@ public class UserContoller {
     @Autowired
     private UserService userService;
 
+
+    @RequestMapping("join")
+    public String showLogin() {
+        return "user/join";
+    }
+
     @RequestMapping("/doJoin")
     @ResponseBody
     public String doJoin(String email, String password, String name) {
@@ -161,4 +167,5 @@ public class UserContoller {
 
         return user;
     }
+
 }
