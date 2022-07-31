@@ -13,7 +13,7 @@
             <div>이메일</div>
             <div>
                 <input type="email" name="email" placeholder="이메일을 입력해주세요." maxlength="50"/>
-                <button type="button">본인인증</button>
+                <a href="javascript:openWindowPop('/', 'popup');">본인인증</a>
             </div>
         </div>
         <div>
@@ -35,81 +35,12 @@
         </div>
     </form>
 
-    <div id="root">
-
-        <button type="button" id="modal_opne_btn">모달 창 열기</button>
-
-    </div>
-
-    <div id="modal">
-
-        <div class="modal_content black">
-            <form th:action="@{|/mail|}" method="post">
-                <input name="address" placeholder="이메일 주소"> <br>
-<!--                <input name="title" placeholder="제목"> <br>-->
-<!--                <input name="message" placeholder="메일 내용을 입력해주세요." cols="60" rows="20"></input>-->
-                <button>발송</button>
-            </form>
-
-            <button type="button" id="modal_close_btn" class="black">모달 창 닫기</button>
-
-        </div>
-
-        <div class="modal_layer"></div>
-    </div>
-
 </main>
 </html>
 
-<style>
-.black{
-    color:black;
+<script layout:fragment="script" type='text/javascript'>
+function openWindowPop(url, name){
+    var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+    window.open(url, name, options);
 }
-
-#modal {
-  display:none;
-
-  position:relative;
-  width:100%;
-  height:100%;
-  z-index:1;
-}
-
-#modal h2 {
-  margin:0;
-}
-
-#modal button {
-  display:inline-block;
-  width:100px;
-  margin-left:calc(100% - 100px - 10px);
-}
-
-#modal .modal_content {
-  width:300px;
-  margin:100px auto;
-  padding:20px 10px;
-  background:#fff;
-  border:2px solid #666;
-}
-
-#modal .modal_layer {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0, 0, 0, 0.5);
-  z-index:-1;
-}
-</style>
-
-<script>
-    document.getElementById("modal_opne_btn").onclick = function() {
-        document.getElementById("modal").style.display="block";
-    }
-
-    document.getElementById("modal_close_btn").onclick = function() {
-        document.getElementById("modal").style.display="none";
-    }
 </script>
