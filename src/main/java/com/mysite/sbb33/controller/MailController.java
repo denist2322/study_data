@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -22,26 +21,19 @@ public class MailController {
     public String execMail(MailDto mailDto) {
         mailService.mailSimpleSend(mailDto);
 //        mailService.mailSend(mailDto);
-        return "user/mail";
+        return "user/join";
     }
 
     @PostMapping("/confirm")
-    @ResponseBody
     public String confirm(MailDto mailDto) {
         if (mailDto.getAuthentication().equals(mailDto.getConfirmAuthentication())) {
-            return """
-                    <script>
-                    alert("인증이 완료되었습니다.");
-                    window.close();
-                    </script>
-                    """;
+            mailDto.setSuccess("Success");
+            mailDto.setFail(null);
+            return "user/join";
 
         }
-        return """
-                <script>
-                alert("번호가 맞지 않습니다.");
-                location.replace("/mail");
-                </script>
-                """;
+        mailDto.setSuccess(null);
+        mailDto.setFail("Fail");
+        return "user/join";
     }
 }

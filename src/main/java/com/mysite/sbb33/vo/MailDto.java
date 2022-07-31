@@ -13,4 +13,6 @@ public class MailDto {
     private String message;
     private String authentication;
     private String confirmAuthentication;
+    private String success;
+    private String fail;
 }
