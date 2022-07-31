@@ -13,7 +13,7 @@ public class MailController {
     private final MailService mailService;
 
     @GetMapping("/mail")
-    public String dispMail() {
+    public String dispMail(MailDto mailDto) {
         return "user/mail";
     }
 

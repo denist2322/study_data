@@ -8,11 +8,14 @@
     <title>메일 발송</title>
 </head>
 <body>
-<h1>메일 발송</h1>
+<h1>본인인증</h1>
 
 <form th:action="@{|/mail|}" method="post">
-    <input name="address" placeholder="이메일 주소"> <br>
-    <button>발송</button>
+    <input name="" placeholder="인증번호"> <br>
+</form>
+<form th:action="@{|/mail|}" method="post">
+    <input type="hidden" name="email" th:value="${mailDto.email}">
+    <input type="submit" value="재발송">
 </form>
 </body>
 </html>
