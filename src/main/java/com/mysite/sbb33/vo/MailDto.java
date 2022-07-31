@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MailDto {
-    private String address;
+    private String email;
     private String title;
     private String message;
 }

@@ -8,24 +8,27 @@
 
 <main layout:fragment="main">
     <h1>회원가입</h1>
-    <form th:action="@{|/user/doJoin|}">
+
         <div>
             <div>이메일</div>
             <div>
-                <input type="email" name="email" placeholder="이메일을 입력해주세요." maxlength="50"/>
-                <a href="javascript:openWindowPop('/', 'popup');">본인인증</a>
+                <form name="emailData" id="emailData" method="post">
+                    <input type="email" name="email" placeholder="이메일을 입력해주세요." class = "text-black" maxlength="50"/>
+                </form>
+                <a href="javascript:openWindowPop('/mail', 'popup');">메일인증</a>
             </div>
         </div>
+    <form th:action="@{|/user/doJoin|}">
         <div>
             <div>비밀번호</div>
             <div>
-                <input type="password" name="password" placeholder="비밀번호를 입력해주세요." maxlength="30"/>
+                <input type="password" name="password" placeholder="비밀번호를 입력해주세요." class = "text-black" maxlength="30"/>
             </div>
         </div>
         <div>
             <div>이름</div>
             <div>
-                <input type="name" name="password" placeholder="비밀번호를 입력해주세요." maxlength="30"/>
+                <input type="name" name="password" placeholder="비밀번호를 입력해주세요." class = "text-black" maxlength="30"/>
             </div>
         </div>
         <div>
@@ -42,5 +45,12 @@
 function openWindowPop(url, name){
     var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
     window.open(url, name, options);
+
+    var emailData = document.emailData;
+    emailData.target = name;
+    emailData.action = "/mail";
+
+    emailData.submit();
 }
+
 </script>

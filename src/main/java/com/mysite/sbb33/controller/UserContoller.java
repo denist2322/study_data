@@ -2,6 +2,7 @@ package com.mysite.sbb33.controller;
 
 import com.mysite.sbb33.Ut.Ut;
 import com.mysite.sbb33.service.UserService;
+import com.mysite.sbb33.vo.MailDto;
 import com.mysite.sbb33.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ public class UserContoller {
 
 
     @RequestMapping("join")
-    public String showLogin() {
+    public String showLogin(MailDto mailDto) {
         return "user/join";
     }
 

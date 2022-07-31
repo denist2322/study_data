@@ -17,8 +17,8 @@ public class MailService {
     @Async
     public void mailSimpleSend(MailDto mailDto) {
         SimpleMailMessage message = new SimpleMailMessage();
-        String msg = mailDto.getMessage() + "\n인증번호는 " + RandomStringUtils.randomAlphanumeric(6) + "입니다";
-        message.setTo(mailDto.getAddress());
+        String msg = mailDto.getMessage() + "\n인증번호는 " + RandomStringUtils.randomAlphanumeric(8) + "입니다";
+        message.setTo(mailDto.getEmail());
 //        message.setFrom(MailService.FROM_ADDRESS); // 구글 정책 변경으로 설정한 gmail로 가게됨
         message.setSubject(mailDto.getTitle());
         message.setText(msg);
