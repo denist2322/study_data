@@ -35,6 +35,11 @@ spring:
         type:
           descriptor:
             sql: trace
+  servlet:
+    multipart:
+      enabled: true
+      maxFileSize: 10MB
+      maxRequestSize: 20MB
   devtools:
     livereload:
       enabled=true:
