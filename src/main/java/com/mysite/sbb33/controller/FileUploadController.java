@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -28,7 +29,7 @@ public class FileUploadController {
         System.out.println("fileContent : " + fileContent);
 
         // path 가져오기
-        String root =  "C:\\work\\intellij_project\\sbb33_study - 복사본\\src\\main\\resources\\static\\" + "uploadFiles";
+        String root =  "C:\\work\\intellij_project\\sbb33_study - 복사본\\src\\main\\resources\\static\\uploadFiles\\" + LocalDateTime.now().toString().substring(0,19).replace(":","-");
 
         File fileCheck = new File(root);
 
