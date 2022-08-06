@@ -75,5 +75,12 @@ title = '제목 4',
 `body` = '이건 정말정말 긴 길이의 텍스트입니다. 이것을 만든 이유는 몰라도 됩니다. 미안합니다 사실 테스트를 위해서 만든것입니다. 과연 잘 나올지 궁금해죠?',
 `user_id` = 3;
 
+CREATE TABLE files(
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `filename` TEXT,
+    article_id BIGINT UNSIGNED NOT NULL
+);
+
 SELECT * FROM article;
 SELECT * FROM `user`;
+SELECT * FROM `files`;
