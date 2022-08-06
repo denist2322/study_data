@@ -18,7 +18,7 @@ public class ArticleService {
     @Autowired
     private UserRepository userRepository;
 
-    public void doWrite(long loginedUserId, String title, String body) {
+    public Article doWrite(long loginedUserId, String title, String body) {
         Article article = new Article();
         article.setRegDate(LocalDateTime.now());
         article.setUpdateDate(LocalDateTime.now());
@@ -28,6 +28,7 @@ public class ArticleService {
         article.setUser(user);
 
         articleRepository.save(article);
+        return article;
     }
 
     public List<Article> getLists() {

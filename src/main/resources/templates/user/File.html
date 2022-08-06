@@ -8,11 +8,24 @@
 
 <main layout:fragment="main">
     <h1 align="center">파일 업로드 하기</h1>
-
     <h3>multi file 업로드</h3>
-    <form action="multi-file" method="post"  enctype="multipart/form-data">
-        파일 : <input type="file" name="multiFile" multiple> <br>
-        파일 설명 : <input type="text" name="fileContent"><br>
+    <form action="multi-file" method="POST", enctype="multipart/form-data">
+        <div>
+            <div>제목</div>
+            <div>
+                <input type="text" name="title" placeholder="제목을 입력해주세요." />
+            </div>
+        </div>
+
+        <div>
+            <div>내용</div>
+            <div>
+                <textarea name="body" placeholder="내용을 입력해주세요."></textarea>
+            </div>
+        </div>
+        <div>
+        파일 : <input type="file" name="multiFile" multiple>
+        </div>
         <input type="submit" value="제출">
     </form>
 

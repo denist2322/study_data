@@ -1,35 +1,35 @@
-<!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{common/layout}">
-<head>
-    <meta charset="UTF-8">
-    <title>게시물 작성</title>
-</head>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"-->
+<!--      layout:decorate="~{common/layout}">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>게시물 작성</title>-->
+<!--</head>-->
 
-<main layout:fragment="main">
-<h1>게시물 작성</h1>
-<!--    <form action="doWrite" method="POST"> 둘다 가능함-->
-    <form th:action="@{|/article/doWrite|}" th:object=${articleWriteForm} method="POST">
-        <div th:replace="common/error_form :: formErrorsFragment"></div>
-        <div>
-            <div>제목</div>
-            <div>
-                <input type="text" name="title" placeholder="제목을 입력해주세요." />
-            </div>
-        </div>
+<!--<main layout:fragment="main">-->
+<!--<h1>게시물 작성</h1>-->
+<!--&lt;!&ndash;    <form action="doWrite" method="POST"> 둘다 가능함&ndash;&gt;-->
+<!--    <form th:action="@{|/article/doWrite|}" th:object=${articleWriteForm} method="POST">-->
+<!--        <div th:replace="common/error_form :: formErrorsFragment"></div>-->
+<!--        <div>-->
+<!--            <div>제목</div>-->
+<!--            <div>-->
+<!--                <input type="text" name="title" placeholder="제목을 입력해주세요." />-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div>
-            <div>내용</div>
-            <div>
-                <textarea name="body" placeholder="내용을 입력해주세요."></textarea>
-            </div>
-        </div>
+<!--        <div>-->
+<!--            <div>내용</div>-->
+<!--            <div>-->
+<!--                <textarea name="body" placeholder="내용을 입력해주세요."></textarea>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div>
-            <div>
-                <input type="submit" value="작성"/>
-            </div>
-        </div>
-    </form>
-</main>
-</html>
+<!--        <div>-->
+<!--            <div>-->
+<!--                <input type="submit" value="작성"/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</main>-->
+<!--</html>-->
