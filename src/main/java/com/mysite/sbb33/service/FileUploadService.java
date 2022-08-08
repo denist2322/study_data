@@ -24,8 +24,7 @@ public class FileUploadService {
     @Async
     public void doUpload(ArticleWriteForm articleWriteForm, List<MultipartFile> multiFileList, HttpServletRequest request, HttpSession session) {
         // path 가져오기
-        String frontPath = "C:\\work\\intellij_project\\sbb33_study - 복사본\\src\\main\\resources\\static\\";
-        String root = frontPath + "uploadFiles";
+        String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
 
         File fileCheck = new File(root);
 
@@ -47,19 +46,13 @@ public class FileUploadService {
             fileList.add(map);
         }
 
-
-        System.out.println(fileList);
-        System.out.println(root);
-        List<String> fileName = new ArrayList<>();
         // 파일업로드
         try {
             for (int i = 0; i < multiFileList.size(); i++) {
-                String path = fileList.get(i).get("changeFile");
-                fileName.add(path);
                 File uploadFile = new File(root + "\\" + fileList.get(i).get("changeFile"));
                 multiFileList.get(i).transferTo(uploadFile);
             }
-            uploadDB(fileName, session, articleWriteForm);
+            uploadDB(fileList, session, articleWriteForm);
             System.out.println("다중 파일 업로드 성공!");
 
         } catch (IllegalStateException | IOException e) {
@@ -72,15 +65,15 @@ public class FileUploadService {
         }
     }
 
-    private void uploadDB(List<String> fileName, HttpSession session, ArticleWriteForm articleWriteForm) {
-        if (session.getAttribute("loginedUserId") != null) {
-            Article aritcle = articleService.doWrite((long) session.getAttribute("loginedUserId"), articleWriteForm.getTitle(), articleWriteForm.getBody());
-            for (String file : fileName) {
-                Files files = new Files();
-                files.setFilename(file);
-                files.setArticle(aritcle);
-                filesRepository.save(files);
-            }
+    private void uploadDB(List<Map<String, String>> fileName, HttpSession session, ArticleWriteForm articleWriteForm) {
+
+        Article aritcle = articleService.doWrite((long) session.getAttribute("loginedUserId"), articleWriteForm.getTitle(), articleWriteForm.getBody());
+        for (Map<String, String> file : fileName) {
+            Files files = new Files();
+            files.setFilename(file.get("changeFile"));
+            files.setArticle(aritcle);
+            filesRepository.save(files);
+
         }
     }
 }

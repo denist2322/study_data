@@ -141,12 +141,22 @@ public class UserContoller {
         boolean isLogined = userService.isLogined(session);
 
         if (!isLogined) {
-            return "이미 로그아웃 되었습니다. :)";
+            return """
+                    <script>
+                    alert("이미 로그아웃 되었습니다.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         userService.removeLogin(session);
 
-        return "로그아웃 되었습니다. :)";
+        return """
+                    <script>
+                    alert("로그아웃 되었습니다.");
+                    history.back();
+                    </script>
+                    """;
 
     }
 

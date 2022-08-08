@@ -15,7 +15,8 @@
 <ul class="flex">
     <li><a th:if="${session.loginedUserId != null}" href="/multi-file" class="block p-4 hover:text-green-300">글쓰기</a></li>
     <li><a href="/article/list" class="block p-4 hover:text-green-300">글 리스트</a></li>
-    <li><a href="/user/login" class="block p-4 hover:text-green-300">로그인</a></li>
+    <li><a th:if="${session.loginedUserId == null}" href="/user/login" class="block p-4 hover:text-green-300">로그인</a></li>
+    <li><a th:if="${session.loginedUserId != null}" href="/user/doLogout" class="block p-4 hover:text-green-300">로그아웃</a></li>
     <li><a href="/user/join" class="block p-4 hover:text-green-300">회원가입</a></li>
 </ul>
 <main layout:fragment="main">
