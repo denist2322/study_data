@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -230,5 +231,12 @@ public class ArticleController {
                 location.replace("list");
                 </script>
                 """;
+    }
+
+    @GetMapping("/posts/search")
+    public String search(String keyword, Model model) {
+        List<Article> articles= articleService.searchTitle(keyword);
+        model.addAttribute("articles", articles);
+        return "article/list.html";
     }
 }

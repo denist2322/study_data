@@ -7,6 +7,10 @@
 </head>
 <main layout:fragment="main">
     <h1>게시물 목록</h1>
+    <form th:action="@{/article/posts/search}" method="GET" class="form-inline p-2 bd-highlight" role="search">
+        <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
+        <button class="btn btn-success bi bi-search"> 검색 </button>
+    </form>
     <ul>
         <li th:each="article : ${articles}">
             [[${article.id}]] / <a th:href="@{detail(id=${article.id})}">[[${article.title}]]</a> /

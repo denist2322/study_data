@@ -7,6 +7,7 @@ import com.mysite.sbb33.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,5 +56,12 @@ public class ArticleService {
 
     public void doDelete(Long id) {
         articleRepository.deleteById(id);
+    }
+
+    // 아래 어노테이션을 쓰면 만약 sql 오류가 발생해도 에러가 발생하지 않고 롤백함.
+    @Transactional
+    public List<Article> searchTitle(String keyword){
+        List<Article> articles = articleRepository.findByTitleKeyword(keyword);
+        return articles;
     }
 }

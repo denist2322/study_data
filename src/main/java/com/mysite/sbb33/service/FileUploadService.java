@@ -25,7 +25,7 @@ public class FileUploadService {
     public void doUpload(ArticleWriteForm articleWriteForm, List<MultipartFile> multiFileList, HttpServletRequest request, HttpSession session) {
         // path 가져오기
         String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
-
+        System.out.println(root);
         File fileCheck = new File(root);
 
         if (!fileCheck.exists()) fileCheck.mkdirs();
